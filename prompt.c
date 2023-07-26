@@ -1,7 +1,6 @@
 #include "file.h"
 #include <sys/wait.h>
 #define MAX_COMMAND 20
-
 /**
  * prompt - function prompt.
  * @av: array vector.
@@ -10,10 +9,9 @@
 void prompt(char **av, char **ev)
 {
 char *lineptr = 0;
-int i = 0;
+int i = 0, h = 0;
 size_t n = 0;
 int status;
-int h = 0;
 ssize_t char_num;
 char *argv[MAX_COMMAND];
 pid_t child_p;
@@ -48,8 +46,5 @@ if (child_p == 0)
 {
 if (execve(argv[0], argv, ev) == -1)
 printf("%s: No such file or directory\n", av[0]);
-}
-else
-wait(&status);
 }
 }
