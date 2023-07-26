@@ -2,6 +2,11 @@
 #include <sys/wait.h>
 #define MAX_COMMAND 20
 
+/**
+ * prompt - function prompt.
+ * @av: array vector.
+ * @ev: environment.
+ */
 void prompt(char **av, char **ev)
 {
 char *lineptr = 0;

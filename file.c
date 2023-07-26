@@ -1,5 +1,12 @@
 #include "file.h"
 
+/**
+ * main - the main function.
+ * @ac: the counter.
+ * @av: array vector.
+ * Return: returns 0.
+ */
+
 int main(int ac, char **av, char **ev)
 {
 if (ac == 1)
