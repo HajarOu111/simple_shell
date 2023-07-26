@@ -4,6 +4,7 @@
  * main - the main function.
  * @ac: the counter.
  * @av: array vector.
+ * @ev: environment variable.
  * Return: returns 0.
  */
 

@@ -17,7 +17,7 @@ int h = 0;
 ssize_t char_num;
 char *argv[MAX_COMMAND];
 pid_t child_p;
-while(1)
+while (1)
 {
 printf("#cisfun$ ");
 char_num = getline(&lineptr, &n, stdin);
@@ -26,14 +26,14 @@ if (char_num == -1)
 free(lineptr);
 exit(EXIT_FAILURE);
 }
-while(lineptr[i])
+while (lineptr[i])
 {
 if (lineptr[i] == '\n')
 lineptr[i] = 0;
 i++;
 }
 argv[h] = strtok(lineptr, " ");
-while(argv[h])
+while (argv[h])
 {
 h++;
 argv[h] = strtok(NULL, " ");
