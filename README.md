@@ -1,4 +1,4 @@
-## What is the shell?
+             ## What is the shell?
 The shell is a program that takes commands from the keyboard via the terminal, and gives them to the operating system to perform.\
 **To better understand how the shell actually works, you can read our [Article].**
 
@@ -49,7 +49,7 @@ It is created using the **C programming Language** and it can do many functional
 	- **_unsetenv** -> remove a global variable
 
 ****
-## List of allowed functions and system calls for this project
+List of allowed functions and system calls for this project
  - access (man 2 access)
  - chdir (man 2 chdir)
  - close (man 2 close)
