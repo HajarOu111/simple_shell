@@ -1,3 +1,4 @@
+
 #ifndef SHELL_H
 #define SHELL_H
 
@@ -60,64 +61,64 @@ typedef struct builtins
 /*========  shell.c  ========*/
 
 /* Inicialize the struct with the info of the program */
-void _inicialize_data(data_of_program *data, int arc, char *argv[], char **env);
+void inicialize_data(data_of_program *data, int arc, char *argv[], char **env);
 
 /* Makes the infinite loop that shows the prompt*/
-void _sisifo(char *prompt, data_of_program *data);
+void sisifo(char *prompt, data_of_program *data);
 
 /* Print the prompt in a new line */
-void _handle_ctrl_c(int opr UNUSED);
+void handle_ctrl_c(int opr UNUSED);
 
 
 /*========  _getline.c  ========*/
 
 /* Read one line of the standar input*/
-int getline(data_of_program *data);
+int _getline(data_of_program *data);
 
 /* split the each line for the logical operators if it exist */
-int _check_logic_ops(char *array_commands[], int i, char array_operators[]);
+int check_logic_ops(char *array_commands[], int i, char array_operators[]);
 
 
 /*======== expansions.c ========*/
 
 /* expand variables */
-void _expand_variables(data_of_program *data);
+void expand_variables(data_of_program *data);
 
 /* expand aliases */
-void _expand_alias(data_of_program *data);
+void expand_alias(data_of_program *data);
 
 /* append the string to the end of the buffer*/
-int add_buffer(char *buffer, char *str_to_add);
+int buffer_add(char *buffer, char *str_to_add);
 
 
 /*======== str_tok.c ========*/
 
 /* Separate the string in tokens using a designed delimiter */
-void token_ize(data_of_program *data);
+void tokenize(data_of_program *data);
 
 /* Creates a pointer to a part of a string */
-char *_strntok(char *line, char *delim);
+char *_strtok(char *line, char *delim);
 
 
 /*======== execute.c ========*/
 
 /* Execute a command with its entire path */
-int _execut(data_of_program *data);
+int execute(data_of_program *data);
 
 
 /*======== builtins_list.c ========*/
 
 /* If match a builtin, executes it */
-int builtin_list(data_of_program *data);
+int builtins_list(data_of_program *data);
 
 
 /*======== find_in_path.c ========*/
 
 /* Creates an array of the path directories */
-char **tokeniz_path(data_of_program *data);
+char **tokenize_path(data_of_program *data);
 
 /* Search for program in path */
-int _find_program(data_of_program *data);
+int find_program(data_of_program *data);
 
 
 /************** HELPERS FOR MEMORY MANAGEMENT **************/
@@ -126,13 +127,13 @@ int _find_program(data_of_program *data);
 /*======== helpers_free.c ========*/
 
 /* Frees the memory for directories */
-void free_pointers_array(char **directories);
+void free_array_of_pointers(char **directories);
 
 /* Free the fields needed each loop */
-void free_data(data_of_program *data);
+void free_recurrent_data(data_of_program *data);
 
 /* Free all field of the data */
-void _free_all_data(data_of_program *data);
+void free_all_data(data_of_program *data);
 
 
 /************** BUILTINS **************/
@@ -141,31 +142,31 @@ void _free_all_data(data_of_program *data);
 /*======== builtins_more.c ========*/
 
 /* Close the shell */
-int _builtin_exit(data_of_program *data);
+int builtin_exit(data_of_program *data);
 
 /* Change the current directory */
-int _builtin_cd(data_of_program *data);
+int builtin_cd(data_of_program *data);
 
 /* set the work directory */
-int _set_work_directory(data_of_program *data, char *new_dir);
+int set_work_directory(data_of_program *data, char *new_dir);
 
 /* show help information */
-int _builtin_help(data_of_program *data);
+int builtin_help(data_of_program *data);
 
 /* set, unset and show alias */
-int _builtin_alias(data_of_program *data);
+int builtin_alias(data_of_program *data);
 
 
 /*======== builtins_env.c ========*/
 
 /* Shows the environment where the shell runs */
-int _builtin_env(data_of_program *data);
+int builtin_env(data_of_program *data);
 
 /* create or override a variable of environment */
-int _builtin_set_env(data_of_program *data);
+int builtin_set_env(data_of_program *data);
 
 /* delete a variable of environment */
-int _builtin_unset_env(data_of_program *data);
+int builtin_unset_env(data_of_program *data);
 
 
 /************** HELPERS FOR ENVIRONMENT VARIABLES MANAGEMENT **************/
@@ -174,16 +175,16 @@ int _builtin_unset_env(data_of_program *data);
 /*======== env_management.c ========*/
 
 /* Gets the value of an environment variable */
-char *env_key(char *name, data_of_program *data);
+char *env_get_key(char *name, data_of_program *data);
 
 /* Overwrite the value of the environment variable */
-int env_key(char *key, char *value, data_of_program *data);
+int env_set_key(char *key, char *value, data_of_program *data);
 
 /* Remove a key from the environment */
-int remove_key(char *key, data_of_program *data);
+int env_remove_key(char *key, data_of_program *data);
 
 /* prints the current environ */
-void print_environment (data_of_program *data);
+void print_environ(data_of_program *data);
 
 
 /************** HELPERS FOR PRINTING **************/
@@ -192,13 +193,13 @@ void print_environment (data_of_program *data);
 /*======== helpers_print.c ========*/
 
 /* Prints a string in the standar output */
-int print(char *string);
-
-/* Prints a string in the standar error */
 int _print(char *string);
 
 /* Prints a string in the standar error */
-int print_error(int errorcode, data_of_program *data);
+int _printe(char *string);
+
+/* Prints a string in the standar error */
+int _print_error(int errorcode, data_of_program *data);
 
 
 /************** HELPERS FOR STRINGS MANAGEMENT **************/
@@ -207,19 +208,19 @@ int print_error(int errorcode, data_of_program *data);
 /*======== helpers_string.c ========*/
 
 /* Counts the number of characters of a string */
-int _str_length(char *string);
+int str_length(char *string);
 
 /* Duplicates an string */
-char *str_duplicat(char *string);
+char *str_duplicate(char *string);
 
 /* Compares two strings */
-int _str_compare(char *string1, char *string2, int number);
+int str_compare(char *string1, char *string2, int number);
 
 /* Concatenates two strings */
-char *strn_concat(char *string1, char *string2);
+char *str_concat(char *string1, char *string2);
 
 /* Reverse a string */
-void _str_reverse(char *string);
+void str_reverse(char *string);
 
 
 /*======== helpers_numbers.c ========*/
@@ -237,13 +238,13 @@ int count_characters(char *string, char *character);
 /*======== alias_management.c ========*/
 
 /* print the list of alias */
-int _print_alias(data_of_program *data, char *alias);
+int print_alias(data_of_program *data, char *alias);
 
 /* get the alias name */
-char *get_aliass(data_of_program *data, char *alias);
+char *get_alias(data_of_program *data, char *alias);
 
 /* set the alias name */
-int _set_alias(char *alias_string, data_of_program *data);
+int set_alias(char *alias_string, data_of_program *data);
 
 
-#endif
+#endif /* SHELL_H */

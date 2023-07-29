@@ -8,9 +8,9 @@ int check_file(char *full_path);
  * Return: 0 if success, errcode otherwise
  */
 
-int _find_program(data_of_program *data)
+int find_program(data_of_program *data)
 {
-	int i = 0, ret_coode = 0;
+	int i = 0, ret_code = 0;
 	char **directories;
 
 	if (!data->command_name)
@@ -35,20 +35,20 @@ int _find_program(data_of_program *data)
 	for (i = 0; directories[i]; i++)
 	{/* appends the function_name to path */
 		directories[i] = str_concat(directories[i], data->tokens[0]);
-		ret_coode = check_file(directories[i]);
-		if (ret_coode == 0 || ret_coode == 126)
+		ret_code = check_file(directories[i]);
+		if (ret_code == 0 || ret_code == 126)
 		{/* the file was found, is not a directory and has execute permisions*/
 			errno = 0;
 			free(data->tokens[0]);
 			data->tokens[0] = str_duplicate(directories[i]);
 			free_array_of_pointers(directories);
-			return (ret_coode);
+			return (ret_code);
 		}
 	}
 	free(data->tokens[0]);
 	data->tokens[0] = NULL;
 	free_array_of_pointers(directories);
-	return (ret_coode);
+	return (ret_code);
 }
 
 /**
@@ -57,10 +57,10 @@ int _find_program(data_of_program *data)
  * Return: array of path directories
  */
 
-char **tokeniz_path(data_of_program *data)
+char **tokenize_path(data_of_program *data)
 {
 	int i = 0;
-	int count_directories = 2;
+	int counter_directories = 2;
 	char **tokens = NULL;
 	char *PATH;
 
@@ -77,11 +77,11 @@ char **tokeniz_path(data_of_program *data)
 	for (i = 0; PATH[i]; i++)
 	{
 		if (PATH[i] == ':')
-			count_directories++;
+			counter_directories++;
 	}
 
 	/* reserve space for the array of pointers */
-	tokens = malloc(sizeof(char *) * count_directories);
+	tokens = malloc(sizeof(char *) * counter_directories);
 
 	/*tokenize and duplicate each token of path*/
 	i = 0;
@@ -104,13 +104,13 @@ char **tokeniz_path(data_of_program *data)
  * Return: 0 on success, or error code if it exists.
  */
 
-int _check_file(char *full_path)
+int check_file(char *full_path)
 {
-	struct stat Ab;
+	struct stat sb;
 
-	if (stat(full_path, &Ab) != -1)
+	if (stat(full_path, &sb) != -1)
 	{
-		if (S_ISDIR(Ab.st_mode) ||  access(full_path, X_OK))
+		if (S_ISDIR(sb.st_mode) ||  access(full_path, X_OK))
 		{
 			errno = 126;
 			return (126);

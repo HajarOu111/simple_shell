@@ -1,17 +1,17 @@
 #include "shell.h"
 
 /**
-* getline - read one line from the prompt.
+* _getline - read one line from the prompt.
 * @data: struct for the program's data
 *
-* Return: reading counting byt.
+* Return: reading counting bytes.
 */
-int getline(data_of_program *data)
+int _getline(data_of_program *data)
 {
 	char buff[BUFFER_SIZE] = {'\0'};
 	static char *array_commands[10] = {NULL};
 	static char array_operators[10] = {'\0'};
-	ssize_t byt, i = 0;
+	ssize_t bytes_read, i = 0;
 
 	/* check if doesnot exist more commands in the array */
 	/* and checks the logical operators */
@@ -26,8 +26,8 @@ int getline(data_of_program *data)
 		}
 
 		/* read from the file descriptor int to buff */
-		byt= read(data->file_descriptor, &buff, BUFFER_SIZE - 1);
-		if (byt== 0)
+		bytes_read = read(data->file_descriptor, &buff, BUFFER_SIZE - 1);
+		if (bytes_read == 0)
 			return (-1);
 
 		/* split lines for \n or ; */
@@ -59,37 +59,37 @@ int getline(data_of_program *data)
 *
 * Return: index of the last command in the array_commands.
 */
-int _check_logic_ops(char *array_commands[], int i, char array_operators[])
+int check_logic_ops(char *array_commands[], int i, char array_operators[])
 {
 	char *temp = NULL;
-	int s;
+	int j;
 
 	/* checks for the & char in the command line*/
-	for (s = 0; array_commands[i] != NULL  && array_commands[i][s]; s++)
+	for (j = 0; array_commands[i] != NULL  && array_commands[i][j]; j++)
 	{
-		if (array_commands[i][s] == '&' && array_commands[i][s + 1] == '&')
+		if (array_commands[i][j] == '&' && array_commands[i][j + 1] == '&')
 		{
 			/* split the line when chars && was found */
 			temp = array_commands[i];
-			array_commands[i][s] = '\0';
+			array_commands[i][j] = '\0';
 			array_commands[i] = str_duplicate(array_commands[i]);
-			array_commands[i + 1] = str_duplicate(temp + s + 2);
+			array_commands[i + 1] = str_duplicate(temp + j + 2);
 			i++;
 			array_operators[i] = '&';
 			free(temp);
-			s = 0;
+			j = 0;
 		}
-		if (array_commands[i][s] == '|' && array_commands[i][s + 1] == '|')
+		if (array_commands[i][j] == '|' && array_commands[i][j + 1] == '|')
 		{
 			/* split the line when chars || was found */
 			temp = array_commands[i];
-			array_commands[i][s] = '\0';
+			array_commands[i][j] = '\0';
 			array_commands[i] = str_duplicate(array_commands[i]);
-			array_commands[i + 1] = str_duplicate(temp + s + 2);
+			array_commands[i + 1] = str_duplicate(temp + j + 2);
 			i++;
 			array_operators[i] = '|';
 			free(temp);
-			s = 0;
+			j = 0;
 		}
 	}
 	return (i);

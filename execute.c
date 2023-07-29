@@ -4,9 +4,9 @@
  * @data: a pointer to the program's data
  * Return: If sucess returns zero, otherwise, return -1.
  */
-int _execut(data_of_program *data)
+int execute(data_of_program *data)
 {
-	int retval = 0, statuss;
+	int retval = 0, status;
 	pid_t pidd;
 
 	/* check for program in built ins */
@@ -35,12 +35,12 @@ int _execut(data_of_program *data)
 				perror(data->command_name), exit(EXIT_FAILURE);
 		}
 		else
-		{/* I am the father, I wait and check the exit statuss of the child */
-			wait(&statuss);
-			if (WIFEXITED(statuss))
-				errno = WEXITSTATUS(statuss);
-			else if (WIFSIGNALED(statuss))
-				errno = 128 + WTERMSIG(statuss);
+		{/* I am the father, I wait and check the exit status of the child */
+			wait(&status);
+			if (WIFEXITED(status))
+				errno = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				errno = 128 + WTERMSIG(status);
 		}
 	}
 	return (0);

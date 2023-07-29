@@ -30,7 +30,7 @@ int main(int argc, char *argv[], char *env[])
  * when the signal SIGINT (ctrl + c) is send to the program
  * @UNUSED: option of the prototype
  */
-void _handle_ctrl_c(int opr UNUSED)
+void handle_ctrl_c(int opr UNUSED)
 {
 	_print("\n");
 	_print(PROMPT_MSG);
@@ -43,9 +43,9 @@ void _handle_ctrl_c(int opr UNUSED)
  * @env: environ pased to the program execution
  * @argc: number of values received from the command line
  */
-void _inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
+void inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
 {
-	int h = 0;
+	int i = 0;
 
 	data->program_name = argv[0];
 	data->input_line = NULL;
@@ -59,10 +59,10 @@ void _inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
 		data->file_descriptor = open(argv[1], O_RDONLY);
 		if (data->file_descriptor == -1)
 		{
-			_print(data->program_name);
-			_print(": 0: Can't open ");
-			_print(argv[1]);
-			_print("\n");
+			_printe(data->program_name);
+			_printe(": 0: Can't open ");
+			_printe(argv[1]);
+			_printe("\n");
 			exit(127);
 		}
 	}
@@ -70,18 +70,18 @@ void _inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
 	data->env = malloc(sizeof(char *) * 50);
 	if (env)
 	{
-		for (; env[h]; h++)
+		for (; env[i]; i++)
 		{
-			data->env[h] = str_duplicate(env[h]);
+			data->env[i] = str_duplicate(env[i]);
 		}
 	}
-	data->env[h] = NULL;
+	data->env[i] = NULL;
 	env = data->env;
 
 	data->alias_list = malloc(sizeof(char *) * 20);
-	for (h = 0; h < 20; h++)
+	for (i = 0; i < 20; i++)
 	{
-		data->alias_list[h] = NULL;
+		data->alias_list[i] = NULL;
 	}
 }
 /**
@@ -89,16 +89,16 @@ void _inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
  * @prompt: prompt to be printed
  * @data: its a infinite loop that shows the prompt
  */
-void _sisifo(char *prompt, data_of_program *data)
+void sisifo(char *prompt, data_of_program *data)
 {
-	int error_codde = 0, string_len = 0;
+	int error_code = 0, string_len = 0;
 
 	while (++(data->exec_counter))
 	{
 		_print(prompt);
-		error_codde = string_len = _getline(data);
+		error_code = string_len = _getline(data);
 
-		if (error_codde == EOF)
+		if (error_code == EOF)
 		{
 			free_all_data(data);
 			exit(errno); /* if EOF is the fisrt Char of string, exit*/
@@ -110,9 +110,9 @@ void _sisifo(char *prompt, data_of_program *data)
 			tokenize(data);
 			if (data->tokens[0])
 			{ /* if a text is given to prompt, execute */
-				error_codde = execute(data);
-				if (error_codde != 0)
-					_print_error(error_codde, data);
+				error_code = execute(data);
+				if (error_code != 0)
+					_print_error(error_code, data);
 			}
 			free_recurrent_data(data);
 		}

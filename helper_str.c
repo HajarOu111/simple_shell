@@ -5,7 +5,7 @@
  * @string: pointer to string.
  * Return: length of string.
  */
-int _str_length(char *string)
+int str_length(char *string)
 {
 	int length = 0;
 
@@ -23,7 +23,7 @@ int _str_length(char *string)
  * @string: String to be copied
  * Return: pointer to the array
  */
-char *str_duplicat(char *string)
+char *str_duplicate(char *string)
 {
 	char *result;
 	int length, i;
@@ -56,7 +56,7 @@ char *str_duplicat(char *string)
  * @number: number of characters to be compared, 0 if infinite
  * Return: 1 if the strings are equals,0 if the strings are different
  */
-int _str_compare(char *string1, char *string2, int number)
+int str_compare(char *string1, char *string2, int number)
 {
 	int iterator;
 
@@ -95,7 +95,7 @@ int _str_compare(char *string1, char *string2, int number)
  *
  * Return: pointer to the array
  */
-char *strn_concat(char *string1, char *string2)
+char *str_concat(char *string1, char *string2)
 {
 	char *result;
 	int length1 = 0, length2 = 0;
@@ -139,16 +139,16 @@ char *strn_concat(char *string1, char *string2)
  * @string: pointer to string.
  * Return: void.
  */
-void _str_reverse(char *string)
+void str_reverse(char *string)
 {
 
 	int i = 0, length = str_length(string) - 1;
-	char holdd;
+	char hold;
 
 	while (i < length)
 	{
-		holdd = string[i];
+		hold = string[i];
 		string[i++] = string[length];
-		string[length--] = holdd;
+		string[length--] = hold;
 	}
 }

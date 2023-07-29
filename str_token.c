@@ -5,11 +5,11 @@
  * @delim: It´s characters we mark off string in parts.
  * Return: A pointer to the created token
 */
-char *_strntok(char *line, char *delim)
+char *_strtok(char *line, char *delim)
 {
 	int j;
 	static char *str;
-	char *coppystr;
+	char *copystr;
 
 	if (line != NULL)
 		str = line;
@@ -23,8 +23,8 @@ char *_strntok(char *line, char *delim)
 		if (delim[j] == '\0')
 			break;
 	}
-	coppystr = str;
-	if (*coppystr == '\0')
+	copystr = str;
+	if (*copystr == '\0')
 		return (NULL);
 	for (; *str != '\0'; str++)
 	{
@@ -34,9 +34,9 @@ char *_strntok(char *line, char *delim)
 			{
 				*str = '\0';
 				str++;
-				return (coppystr);
+				return (copystr);
 			}
 		}
 	}
-	return (coppystr);
+	return (copystr);
 }

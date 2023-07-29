@@ -5,11 +5,11 @@
  * @data: struct for the program's data
  * Return: zero if sucess, or other number if its declared in the arguments
  */
-int _builtin_env(data_of_program *data)
+int builtin_env(data_of_program *data)
 {
 	int i;
 	char cpname[50] = {'\0'};
-	char *var_cpy = NULL;
+	char *var_copy = NULL;
 
 	/* if not arguments */
 	if (data->tokens[1] == NULL)
@@ -21,8 +21,8 @@ int _builtin_env(data_of_program *data)
 			if (data->tokens[1][i] == '=')
 			{/* checks if exists a var with the same name and change its value*/
 			/* temporally */
-				var_cpy = str_duplicate(env_get_key(cpname, data));
-				if (var_cpy != NULL)
+				var_copy = str_duplicate(env_get_key(cpname, data));
+				if (var_copy != NULL)
 					env_set_key(cpname, data->tokens[1] + i + 1, data);
 
 				/* print the environ */
@@ -34,8 +34,8 @@ int _builtin_env(data_of_program *data)
 				}
 				else
 				{/* returns the old value of the var*/
-					env_set_key(cpname, var_cpy, data);
-					free(var_cpy);
+					env_set_key(cpname, var_copy, data);
+					free(var_copy);
 				}
 				return (0);
 			}
@@ -53,7 +53,7 @@ int _builtin_env(data_of_program *data)
  * @data: struct for the program's data
  * Return: zero if sucess, or other number if its declared in the arguments
  */
-int _builtin_set_env(data_of_program *data)
+int builtin_set_env(data_of_program *data)
 {
 	/* validate args */
 	if (data->tokens[1] == NULL || data->tokens[2] == NULL)
@@ -75,7 +75,7 @@ int _builtin_set_env(data_of_program *data)
  * @data: struct for the program's data'
  * Return: ..
  */
-int _builtin_unset_env(data_of_program *data)
+int builtin_unset_env(data_of_program *data)
 {
 	/* validate args */
 	if (data->tokens[1] == NULL)
