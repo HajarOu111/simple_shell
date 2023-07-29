@@ -60,13 +60,13 @@ typedef struct builtins
 /*========  shell.c  ========*/
 
 /* Inicialize the struct with the info of the program */
-void inicialize_data(data_of_program *data, int arc, char *argv[], char **env);
+void _inicialize_data(data_of_program *data, int arc, char *argv[], char **env);
 
 /* Makes the infinite loop that shows the prompt*/
-void sisifo(char *prompt, data_of_program *data);
+void _sisifo(char *prompt, data_of_program *data);
 
 /* Print the prompt in a new line */
-void handle_ctrl_c(int opr UNUSED);
+void _handle_ctrl_c(int opr UNUSED);
 
 
 /*========  _getline.c  ========*/
@@ -81,22 +81,22 @@ int _check_logic_ops(char *array_commands[], int i, char array_operators[]);
 /*======== expansions.c ========*/
 
 /* expand variables */
-void expand_variables(data_of_program *data);
+void _expand_variables(data_of_program *data);
 
 /* expand aliases */
-void expand_alias(data_of_program *data);
+void _expand_alias(data_of_program *data);
 
 /* append the string to the end of the buffer*/
-int buffer_add(char *buffer, char *str_to_add);
+int add_buffer(char *buffer, char *str_to_add);
 
 
 /*======== str_tok.c ========*/
 
 /* Separate the string in tokens using a designed delimiter */
-void tokenize(data_of_program *data);
+void token_ize(data_of_program *data);
 
 /* Creates a pointer to a part of a string */
-char *_strtok(char *line, char *delim);
+char *_strntok(char *line, char *delim);
 
 
 /*======== execute.c ========*/
@@ -108,7 +108,7 @@ int _execut(data_of_program *data);
 /*======== builtins_list.c ========*/
 
 /* If match a builtin, executes it */
-int builtins_list(data_of_program *data);
+int builtin_list(data_of_program *data);
 
 
 /*======== find_in_path.c ========*/
@@ -126,13 +126,13 @@ int _find_program(data_of_program *data);
 /*======== helpers_free.c ========*/
 
 /* Frees the memory for directories */
-void free_array_of_pointers(char **directories);
+void free_pointers_array(char **directories);
 
 /* Free the fields needed each loop */
-void free_recurrent_data(data_of_program *data);
+void free_data(data_of_program *data);
 
 /* Free all field of the data */
-void free_all_data(data_of_program *data);
+void _free_all_data(data_of_program *data);
 
 
 /************** BUILTINS **************/
@@ -174,16 +174,16 @@ int _builtin_unset_env(data_of_program *data);
 /*======== env_management.c ========*/
 
 /* Gets the value of an environment variable */
-char *env_get_key(char *name, data_of_program *data);
+char *env_key(char *name, data_of_program *data);
 
 /* Overwrite the value of the environment variable */
-int env_set_key(char *key, char *value, data_of_program *data);
+int env_key(char *key, char *value, data_of_program *data);
 
 /* Remove a key from the environment */
-int env_remove_key(char *key, data_of_program *data);
+int remove_key(char *key, data_of_program *data);
 
 /* prints the current environ */
-void print_environ(data_of_program *data);
+void print_environment (data_of_program *data);
 
 
 /************** HELPERS FOR PRINTING **************/
@@ -192,13 +192,13 @@ void print_environ(data_of_program *data);
 /*======== helpers_print.c ========*/
 
 /* Prints a string in the standar output */
+int print(char *string);
+
+/* Prints a string in the standar error */
 int _print(char *string);
 
 /* Prints a string in the standar error */
-int _printe(char *string);
-
-/* Prints a string in the standar error */
-int _print_error(int errorcode, data_of_program *data);
+int print_error(int errorcode, data_of_program *data);
 
 
 /************** HELPERS FOR STRINGS MANAGEMENT **************/
@@ -237,13 +237,13 @@ int count_characters(char *string, char *character);
 /*======== alias_management.c ========*/
 
 /* print the list of alias */
-int print_alias(data_of_program *data, char *alias);
+int _print_alias(data_of_program *data, char *alias);
 
 /* get the alias name */
-char *get_alias(data_of_program *data, char *alias);
+char *get_aliass(data_of_program *data, char *alias);
 
 /* set the alias name */
-int set_alias(char *alias_string, data_of_program *data);
+int _set_alias(char *alias_string, data_of_program *data);
 
 
 #endif
