@@ -143,12 +143,12 @@ void _str_reverse(char *string)
 {
 
 	int i = 0, length = str_length(string) - 1;
-	char hold;
+	char holdd;
 
 	while (i < length)
 	{
-		hold = string[i];
+		holdd = string[i];
 		string[i++] = string[length];
-		string[length--] = hold;
+		string[length--] = holdd;
 	}
 }
