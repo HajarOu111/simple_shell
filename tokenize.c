@@ -1,13 +1,13 @@
 #include "shell.h"
 /**
- * token_ize - this function separate the string using a designed delimiter
+ * tokenize - this function separate the string using a designed delimiter
  * @data: a pointer to the program's data
  * Return: an array of the different parts of the string
  */
-void token_ize(data_of_program *data)
+void tokenize(data_of_program *data)
 {
 	char *delimiter = " \t";
-	int i, h, counte = 2, length;
+	int i, j, counter = 2, length;
 
 	length = str_length(data->input_line);
 	if (length)
@@ -18,14 +18,14 @@ void token_ize(data_of_program *data)
 
 	for (i = 0; data->input_line[i]; i++)
 	{
-		for (h = 0; delimiter[h]; h++)
+		for (j = 0; delimiter[j]; j++)
 		{
-			if (data->input_line[i] == delimiter[h])
-				counte++;
+			if (data->input_line[i] == delimiter[j])
+				counter++;
 		}
 	}
 
-	data->tokens = malloc(counte * sizeof(char *));
+	data->tokens = malloc(counter * sizeof(char *));
 	if (data->tokens == NULL)
 	{
 		perror(data->program_name);
@@ -39,4 +39,3 @@ void token_ize(data_of_program *data)
 		data->tokens[i] = str_duplicate(_strtok(NULL, delimiter));
 	}
 }
-

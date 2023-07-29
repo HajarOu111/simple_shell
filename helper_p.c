@@ -1,34 +1,34 @@
 #include "shell.h"
 
 /**
- * print - writes a array of chars in the standar output
- * @string: pointer to the array of chars
- * Return: the number of bytes writed or .
- * On error, -1 is returned, and errno is set appropriately.
- */
-int print(char *string)
-{
-	return (write(STDOUT_FILENO, string, str_length(string)));
-}
-/**
- * _print - writes a array of chars in the standar error
+ * _print - writes a array of chars in the standar output
  * @string: pointer to the array of chars
  * Return: the number of bytes writed or .
  * On error, -1 is returned, and errno is set appropriately.
  */
 int _print(char *string)
 {
+	return (write(STDOUT_FILENO, string, str_length(string)));
+}
+/**
+ * _printe - writes a array of chars in the standar error
+ * @string: pointer to the array of chars
+ * Return: the number of bytes writed or .
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _printe(char *string)
+{
 	return (write(STDERR_FILENO, string, str_length(string)));
 }
 
 /**
- * print_error - writes a array of chars in the standart error
+ * _print_error - writes a array of chars in the standart error
  * @data: a pointer to the program's data'
  * @errorcode: error code to print
  * Return: the number of bytes writed or .
  * On error, -1 is returned, and errno is set appropriately.
  */
-int print_error(int errorcode, data_of_program *data)
+int _print_error(int errorcode, data_of_program *data)
 {
 	char n_as_string[10] = {'\0'};
 
@@ -36,36 +36,35 @@ int print_error(int errorcode, data_of_program *data)
 
 	if (errorcode == 2 || errorcode == 3)
 	{
-		_print(data->program_name);
-		_print(": ");
-		_print(n_as_string);
-		_print(": ");
-		_print(data->tokens[0]);
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->tokens[0]);
 		if (errorcode == 2)
-			_print(": Illegal number: ");
+			_printe(": Illegal number: ");
 		else
-			_print(": can't cd to ");
-		_print(data->tokens[1]);
-		_print("\n");
+			_printe(": can't cd to ");
+		_printe(data->tokens[1]);
+		_printe("\n");
 	}
 	else if (errorcode == 127)
 	{
-		_print(data->program_name);
-		_print(": ");
-		_print(n_as_string);
-		_print(": ");
-		_print(data->command_name);
-		_print(": not found\n");
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->command_name);
+		_printe(": not found\n");
 	}
 	else if (errorcode == 126)
 	{
-		_print(data->program_name);
-		_print(": ");
-		_print(n_as_string);
-		_print(": ");
-		_print(data->command_name);
-		_print(": Permission denied\n");
+		_printe(data->program_name);
+		_printe(": ");
+		_printe(n_as_string);
+		_printe(": ");
+		_printe(data->command_name);
+		_printe(": Permission denied\n");
 	}
 	return (0);
 }
-
